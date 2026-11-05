@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b5cad">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="JobHunter">
+  <title>JobHunter</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="login" class="login" hidden>
+    <form id="loginForm">
+      <h1>JobHunter</h1>
+      <p>Pegá tu clave de acceso de GitHub (empieza con <code>github_pat_</code>). Se guarda solo en este celular.</p>
+      <input type="password" id="password" autocomplete="off" placeholder="github_pat_..." required>
+      <button type="submit">Entrar</button>
+      <p class="error" id="loginError"></p>
+    </form>
+  </div>
+
+  <main id="app" hidden>
+    <header>
+      <div class="top">
+        <div>
+          <h1>Mis posiciones</h1>
+          <p class="sub" id="lastRun"></p>
+        </div>
+        <button class="icon-btn" id="runBtn" title="Buscar ahora" aria-label="Buscar ahora">
+          <svg viewBox="0 0 24 24" width="22" height="22"><path fill="currentColor" d="M17.65 6.35A7.96 7.96 0 0 0 12 4a8 8 0 1 0 7.73 10h-2.08A6 6 0 1 1 12 6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
+        </button>
+      </div>
+      <div class="banner" id="dryBanner" hidden>Modo prueba: completo formularios externos pero no los envío.</div>
+      <nav class="days" id="days"></nav>
+      <nav class="filters" id="filters">
+        <button data-f="all" class="on">Todas</button>
+        <button data-f="mine">Te toca</button>
+        <button data-f="applied">Postuladas</button>
+        <button data-f="pending">En proceso</button>
+      </nav>
+    </header>
+    <section id="list" class="list"></section>
+    <p class="empty" id="empty" hidden>No hay posiciones para este día con este filtro.</p>
+  </main>
+
+  <dialog id="shot"><img alt="Captura del formulario"><button onclick="this.closest('dialog').close()">Cerrar</button></dialog>
+  <div class="toast" id="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>
