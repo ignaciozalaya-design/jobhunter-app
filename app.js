@@ -179,6 +179,9 @@ function card(j) {
         <h3>Cumplís</h3><ul>${(j.met || []).map((m) => `<li class="ok">${esc(m)}</li>`).join("") || "<li>—</li>"}</ul>
         <h3>No cumplís</h3><ul>${(j.unmet || []).map((m) => `<li class="no">${esc(m)}</li>`).join("") || "<li>—</li>"}</ul>
       </div>
+      ${j.cover_letter ? `<details class="letter"><summary>Carta de presentación lista para copiar</summary>
+        <p>${esc(j.cover_letter).replace(/\n/g, "<br>")}</p>
+        <button data-act="copy">Copiar carta</button></details>` : ""}
       <div class="actions">${actions(j)}</div>
     </div>
     <button class="toggle" data-act="toggle">${open ? "Ver menos" : "Ver resumen y requisitos"}</button>
@@ -218,6 +221,7 @@ $("#list").addEventListener("click", async (e) => {
       toast("Postulando… volvé en unos minutos");
     }
     if (act === "shot") await showShot(id);
+    if (act === "copy") { await navigator.clipboard.writeText(state.jobs[id].cover_letter); toast("Carta copiada"); }
   } catch (err) {
     delete state.local[id]; render();
     if (err.message !== "401") toast("Error: " + err.message);

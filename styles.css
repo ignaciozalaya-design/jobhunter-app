@@ -82,3 +82,7 @@ dialog button { margin-top: 8px; width: 100%; padding: 10px; border-radius: 10px
 .toast { position: fixed; left: 50%; bottom: calc(env(safe-area-inset-bottom) + 20px); transform: translateX(-50%);
   background: var(--text); color: var(--bg); padding: 10px 16px; border-radius: 10px; opacity: 0; transition: opacity .2s; pointer-events: none; max-width: 90vw; }
 .toast.show { opacity: 1; }
+.letter { margin-top: 14px; background: var(--brand-soft); border-radius: 12px; padding: 10px 12px; }
+.letter summary { cursor: pointer; font-weight: 600; color: var(--brand); }
+.letter p { margin: 10px 0; white-space: normal; }
+.letter button { border: 0; background: var(--brand); color: #fff; padding: 8px 14px; border-radius: 10px; }
