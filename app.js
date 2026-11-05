@@ -146,8 +146,8 @@ function fitClass(f) { return f >= 80 ? "good" : f >= 65 ? "mid" : "low"; }
 
 function actions(j) {
   const a = [];
-  if (j.apply_type !== "external") {
-    a.push(`<a class="primary" href="${esc(j.url)}" target="_blank" rel="noopener">Postularme en LinkedIn</a>`);
+  if (j.apply_type !== "external" || !j.external_url) {
+    a.push(`<a class="primary" href="${esc(j.url)}" target="_blank" rel="noopener">Postularme desde LinkedIn</a>`);
   } else {
     a.push(`<a href="${esc(j.url)}" target="_blank" rel="noopener">Ver en LinkedIn</a>`);
     if (j.external_url) a.push(`<a ${j.status === "revisar" ? 'class="primary"' : ""} href="${esc(j.external_url)}" target="_blank" rel="noopener">Abrir formulario</a>`);
