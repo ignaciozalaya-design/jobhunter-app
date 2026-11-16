@@ -86,3 +86,8 @@ dialog button { margin-top: 8px; width: 100%; padding: 10px; border-radius: 10px
 .letter summary { cursor: pointer; font-weight: 600; color: var(--brand); }
 .letter p { margin: 10px 0; white-space: normal; }
 .letter button { border: 0; background: var(--brand); color: #fff; padding: 8px 14px; border-radius: 10px; }
+.cvbox { margin-top: 14px; border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; }
+.cvtitle { font-weight: 600; margin: 0 0 6px; }
+.cvnotes { margin: 0 0 6px; padding-left: 18px; color: var(--muted); font-size: 13.5px; }
+.kw { font-size: 13px; color: var(--muted); margin: 0 0 8px; }
+.cvbox button { border: 0; background: var(--brand); color: #fff; padding: 8px 14px; border-radius: 10px; }

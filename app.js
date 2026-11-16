@@ -179,6 +179,10 @@ function card(j) {
         <h3>Cumplís</h3><ul>${(j.met || []).map((m) => `<li class="ok">${esc(m)}</li>`).join("") || "<li>—</li>"}</ul>
         <h3>No cumplís</h3><ul>${(j.unmet || []).map((m) => `<li class="no">${esc(m)}</li>`).join("") || "<li>—</li>"}</ul>
       </div>
+      ${j.cv_file ? `<div class="cvbox"><p class="cvtitle">CV adaptado a este aviso${j.cv_lang === "en" ? " (en inglés)" : ""}</p>
+        ${(j.cv_notes?.cambios || []).length ? `<ul class="cvnotes">${j.cv_notes.cambios.map((c) => `<li>${esc(c)}</li>`).join("")}</ul>` : ""}
+        ${(j.cv_notes?.cubiertas || []).length ? `<p class="kw"><b>Palabras clave incluidas:</b> ${j.cv_notes.cubiertas.map(esc).join(", ")}</p>` : ""}
+        <button data-act="cv">Descargar CV adaptado</button></div>` : ""}
       ${j.cover_letter ? `<details class="letter"><summary>Carta de presentación lista para copiar</summary>
         <p>${esc(j.cover_letter).replace(/\n/g, "<br>")}</p>
         <button data-act="copy">Copiar carta</button></details>` : ""}
@@ -197,6 +201,18 @@ function render() {
   $("#list").innerHTML = list.map(card).join("");
   $("#empty").hidden = list.length > 0;
   document.querySelectorAll("#filters button").forEach((b) => b.classList.toggle("on", b.dataset.f === state.filter));
+}
+
+async function downloadCv(id) {
+  const j = state.jobs[id];
+  toast("Descargando CV…");
+  const r = await gh(`/contents/data/${j.cv_file}?ref=${BRANCH}`, { headers: { Accept: "application/vnd.github.raw+json" } });
+  if (!r.ok) return toast("El CV todavía no está disponible");
+  const blob = new Blob([await r.blob()], { type: "application/pdf" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob); a.download = j.cv_name || "CV_Ignacio_Zalaya.pdf";
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 60000);
 }
 
 async function showShot(id) {
@@ -221,6 +237,7 @@ $("#list").addEventListener("click", async (e) => {
       toast("Postulando… volvé en unos minutos");
     }
     if (act === "shot") await showShot(id);
+    if (act === "cv") await downloadCv(id);
     if (act === "copy") { await navigator.clipboard.writeText(state.jobs[id].cover_letter); toast("Carta copiada"); }
   } catch (err) {
     delete state.local[id]; render();
