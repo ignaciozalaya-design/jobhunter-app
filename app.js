@@ -183,9 +183,6 @@ function card(j) {
         ${(j.cv_notes?.cambios || []).length ? `<ul class="cvnotes">${j.cv_notes.cambios.map((c) => `<li>${esc(c)}</li>`).join("")}</ul>` : ""}
         ${(j.cv_notes?.cubiertas || []).length ? `<p class="kw"><b>Palabras clave incluidas:</b> ${j.cv_notes.cubiertas.map(esc).join(", ")}</p>` : ""}
         <button data-act="cv">Descargar CV adaptado</button></div>` : ""}
-      ${j.cover_letter ? `<details class="letter"><summary>Carta de presentación lista para copiar</summary>
-        <p>${esc(j.cover_letter).replace(/\n/g, "<br>")}</p>
-        <button data-act="copy">Copiar carta</button></details>` : ""}
       <div class="actions">${actions(j)}</div>
     </div>
     <button class="toggle" data-act="toggle">${open ? "Ver menos" : "Ver resumen y requisitos"}</button>
